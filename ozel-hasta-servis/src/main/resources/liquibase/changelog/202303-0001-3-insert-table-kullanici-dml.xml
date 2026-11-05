@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202212-0001-3" author="fatih.yildiz">
+        <insert tableName="kullanici">
+            <column name="kullanici_kodu" value="admin"/>
+            <column name="kullanici_adi" value="admin"/>
+            <column name="mail" value="175260306@firat.edu.tr"/>
+            <column name="sifre" value="$2a$10$icbkSBY4H/ub8pKAcnYhjeCit3A6e8JszUVZfu74sG6qqrSoT9CYW"/>
+            <column name="active" value="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

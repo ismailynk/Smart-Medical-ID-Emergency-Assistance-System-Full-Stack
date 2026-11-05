@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202212-0001-4" author="fatih.yildiz">
+        <insert tableName="kullanici_role">
+            <column name="kullanici_id" valueComputed="(select id from kullanici where kullanici_kodu = 'admin')"/>
+            <column name="role" value="ADMIN"/>
+            <column name="last_modified_by" value="admin"/>
+            <column name="created_by" value="admin"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

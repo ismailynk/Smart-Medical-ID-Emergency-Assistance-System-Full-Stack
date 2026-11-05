@@ -1,0 +1,130 @@
+<p-confirmDialog [baseZIndex]="10000"></p-confirmDialog>
+<div class="grid">
+    <div class="col-12 md:col-12">
+        <div class="card p-fluid">
+            <h5>Hastalık Tanımlama</h5>
+            <form name="form" role="form" [formGroup]="hastalikForm" (ngSubmit)="kaydet()">
+                <div class="field">
+                    <label htmlFor="adi">Hastalık Adı</label>
+                    <input pInputText id="adi" type="text" formControlName="adi"/>
+                </div>
+                <div class="field">
+                    <label htmlFor="tanim">Hastalık Tanımı</label>
+                    <textarea inputId="tanim" rows="3" cols="30" pInputTextarea formControlName="tanim"></textarea>
+                </div>
+                <div class="field">
+                    <label htmlFor="belirtiler">Belirtileri</label>
+                    <textarea inputId="belirtiler" rows="3" cols="30" pInputTextarea formControlName="belirtiler"></textarea>
+                </div>
+                <div class="field">
+                    <label htmlFor="yapilmasigereken">Yapılması Gerekenler</label>
+                    <textarea inputId="yapilmasigereken" rows="3" cols="30" pInputTextarea formControlName="yapilmasiGerekenler"></textarea>
+                </div>
+                <div class="field">
+                    <label htmlFor="yapilmamasigereken">Yapılmaması Gerekenler</label>
+                    <textarea inputId="yapilmamasigereken" rows="3" cols="3" pInputTextarea formControlName="yapilmamasiGerekenler"></textarea>
+                </div>
+                <div class="field">
+                    <button pButton pRipple type="submit" label="{{buttonLabel}}"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <h5>Hastalık Listesi</h5>
+            <p-table #dt1
+                     [value]="hastalikList"
+                     dataKey="id"
+                     [rows]="10"
+                     [rowHover]="true"
+                     styleClass="p-datatable-gridlines"
+                     [paginator]="true"
+                     [globalFilterFields]="['adi', 'tanim', 'belirtiler', 'yapilmasiGerekenler', 'yapilmamasiGerekenler']"
+                     selectionMode="single"
+                     (onRowSelect)="kayitDoldur($event.data)"
+                     (onRowUnselect)="temizle()"
+                     responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column">
+                        <span class="p-input-icon-left mb-12">
+							<i class="pi pi-search"></i>
+							<input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
+                                   placeholder="Hastalık Adı, Tanımı, Belirtileri, Yapılması Gerekenleri veya Yapılmaması Gerekenleri Ara" class="w-full"/>
+						</span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Adı
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Tanımı
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Belirtiler
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Yapılması Gerekenler
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Yapılmaması Gerekenler
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                İşlemler
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr [pSelectableRow]="rowData">
+                        <td>
+                            {{rowData.adi}}
+                        </td>
+                        <td>
+                            {{rowData.tanim}}
+                        </td>
+                        <td>
+                            {{rowData.belirtiler}}
+                        </td>
+                        <td>
+                            {{rowData.yapilmasiGerekenler}}
+                        </td>
+                        <td>
+                            {{rowData.yapilmamasiGerekenler}}
+                        </td>
+                        <td>
+                            <button pButton pRipple type="button" icon="pi pi-trash" (click)="sil(rowData.id)"
+                                    pTooltip="Sil" tooltipPosition="buttom"></button>
+                        </td>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">Hastalık Bulunamadı.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="8">Hastalık verileri yükleniyor. Lütfen bekleyin.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+    </div>
+</div>

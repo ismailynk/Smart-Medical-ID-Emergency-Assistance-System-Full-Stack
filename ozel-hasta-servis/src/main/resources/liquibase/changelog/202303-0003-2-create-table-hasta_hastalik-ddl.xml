@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202303-0002-2" author="fatih.yildiz">
+        <createTable tableName="hasta_hastalik">
+            <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="hasta_hastalik_pk"/>
+            </column>
+            <column name="hasta_id" type="${uuid_type}">
+                <constraints foreignKeyName="hasta_hastalik_fk1"
+                             referencedTableName="hasta"
+                             referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="hastalik_id" type="${uuid_type}">
+                <constraints foreignKeyName="hasta_hastalik_fk2"
+                             referencedTableName="hastalik"
+                             referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="teshis_tarihi" type="date"/>
+            <column name="last_modified_by" type="varchar2(50)"/>
+            <column name="last_modified_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+            <column name="created_by" type="varchar2(50)"/>
+            <column name="created_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+        </createTable>
+        <createIndex tableName="hasta_hastalik" indexName="hasta_hastalik_hasta_id_idx">
+            <column name="hasta_id"></column>
+        </createIndex>
+        <createIndex tableName="hasta_hastalik" indexName="hasta_hastalik_hastalik_id_idx">
+            <column name="hastalik_id"></column>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

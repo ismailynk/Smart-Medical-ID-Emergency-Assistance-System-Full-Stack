@@ -1,0 +1,244 @@
+<p-confirmDialog [baseZIndex]="10000"></p-confirmDialog>
+<div class="grid">
+    <div class="col-12 md:col-6 lg:col-6">
+        <div class="card p-fluid">
+            <h3 class="font-bold text-blue-700">Hasta Bilgileri</h3>
+            <form name="form" role="form" [formGroup]="hastaForm" (ngSubmit)="kaydet()">
+                <div class="field">
+                    <label class="font-bold " htmlFor="adi">Hasta Adı</label>
+                    <input pInputText id="adi" type="text" formControlName="adi"/>
+                </div>
+                <div class="field">
+                    <label class="font-bold " htmlFor="teckimlik">T.C. Kimlik Numarası</label>
+                    <input pInputText id="tckimlik" type="text" formControlName="tckimlik"/>
+                </div>
+                <div class="field">
+                    <label class="font-bold " htmlFor="tel">Telefon</label>
+                    <input pInputText id="tel" type="text" formControlName="tel"/>
+                </div>
+                <div class="field">
+                    <label class="font-bold " htmlFor="yakintel1">Yakının Telefonu</label>
+                    <input pInputText id="yakintel1" type="text" formControlName="yakinTel1"/>
+                </div>
+                <div class="field">
+                    <label class="font-bold " htmlFor="yakintel2">Yakının Telefonu(2)</label>
+                    <input pInputText id="yakintel2" type="text" formControlName="yakinTel2"/>
+                </div>
+                <div class="field">
+                    <label class="font-bold " htmlFor="dogumtarihi">Doğum Tarihi</label>
+                    <input pInputText id="dogumtarihi" type="text" formControlName="dogumTarihi"/>
+                </div>
+                <div class="field">
+                    <label class="font-bold " htmlFor="cinsiyet">Cinsiyet</label>
+                    <input pInputText id="cinsiyet" type="text" formControlName="cinsiyet"/>
+                </div>
+                <div class="field">
+                    <button pButton pRipple type="submit" label="Güncelle"></button>
+                </div>
+            </form>
+        </div>
+        <div class="card p-fluid">
+            <div class="grid">
+                <div class="flex align-items-center justify-content-center col-12 md:col-6 lg:col-6">
+                    <qrcode (qrCodeURL)="onChangeURL($event)  " [cssClass]="'center'" [colorDark]="'#0f65ad'" [qrdata]="url" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6 ">
+                    <div class="col-12  ">
+                        <a class="padd" [href]="url" target="_blank" >
+                            <p-button icon="pi pi-link"  styleClass="p-button-rounded p-button-primary" label="Sayfayı Görüntüle"></p-button>
+                        </a>
+                    </div>
+                    <div class="col-12  ">
+                        <a [href]="qrCodeDownloadLink" download="qrcode">
+                            <p-button icon="pi pi-download"  styleClass="p-button-rounded p-button-success" label="QR Kodu İndir"></p-button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-6">
+        <div class="card">
+            <h5 class="font-bold text-blue-700">Tanımlanan Hastalıkların Listesi</h5>
+            <p-table #dt2
+                     [value]="hastaHastalikList"
+                     dataKey="id"
+                     [rows]="10"
+                     [rowHover]="true"
+                     styleClass="p-datatable-gridlines"
+                     [paginator]="true"
+                     [globalFilterFields]="['adi', 'tanim', 'belirtiler', 'yapilmasiGerekenler', 'yapilmamasiGerekenler']"
+                     responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column">
+                        <span class="p-input-icon-left mb-12">
+							<i class="pi pi-search"></i>
+							<input pInputText type="text" #filter (input)="onGlobalFilter(dt2, $event)"
+                                   placeholder="Hastalık Adı, Tanımı, Belirtileri, Yapılması Gerekenleri veya Yapılmaması Gerekenleri Ara" class="w-full"/>
+						</span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Kaldır
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Adı
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Tanımı
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Belirtiler
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Yapılması Gerekenler
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Yapılmaması Gerekenler
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td>
+                            <button pButton pRipple type="button" icon="pi pi-trash" (click)="sil(rowData.id)"
+                                    pTooltip="Sil" tooltipPosition="buttom"></button>
+                        </td>
+                        <td>
+                            {{rowData.hastalik.adi}}
+                        </td>
+                        <td>
+                            {{rowData.hastalik.tanim}}
+                        </td>
+                        <td>
+                            {{rowData.hastalik.belirtiler}}
+                        </td>
+                        <td>
+                            {{rowData.hastalik.yapilmasiGerekenler}}
+                        </td>
+                        <td>
+                            {{rowData.hastalik.yapilmamasiGerekenler}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">Hastaya Ait Hastalık Kaydı Bulunamadı.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="8">Hastalık verileri yükleniyor. Lütfen bekleyin.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="card">
+            <h5 class="font-bold text-blue-700">Hastalık Listesi</h5>
+            <p-table #dt1
+                     [value]="hastalikList"
+                     dataKey="id"
+                     [rows]="10"
+                     [rowHover]="true"
+                     styleClass="p-datatable-gridlines"
+                     [paginator]="true"
+                     [globalFilterFields]="['adi', 'tanim', 'belirtiler', 'yapilmasiGerekenler', 'yapilmamasiGerekenler']"
+                     responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column">
+                        <span class="p-input-icon-left mb-12">
+							<i class="pi pi-search"></i>
+							<input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)"
+                                   placeholder="Hastalık Adı, Tanımı, Belirtileri, Yapılması Gerekenleri veya Yapılmaması Gerekenleri Ara" class="w-full"/>
+						</span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 8rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Ekle
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Adı
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Hastalık Tanımı
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Belirtiler
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Yapılması Gerekenler
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Yapılmaması Gerekenler
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td>
+                            <button pButton pRipple type="button" icon="pi pi-plus-circle" (click)="hastalikEkle(rowData.id)"
+                                    pTooltip="Hastalık Ekle" tooltipPosition="buttom"></button>
+                        </td>
+                        <td>
+                            {{rowData.adi}}
+                        </td>
+                        <td>
+                            {{rowData.tanim}}
+                        </td>
+                        <td>
+                            {{rowData.belirtiler}}
+                        </td>
+                        <td>
+                            {{rowData.yapilmasiGerekenler}}
+                        </td>
+                        <td>
+                            {{rowData.yapilmamasiGerekenler}}
+                        </td>
+
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">Hastalık Bulunamadı.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="8">Hastalık verileri yükleniyor. Lütfen bekleyin.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+    </div>
+</div>

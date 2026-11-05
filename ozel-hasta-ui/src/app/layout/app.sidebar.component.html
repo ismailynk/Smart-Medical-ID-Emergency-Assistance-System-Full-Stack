@@ -1,0 +1,15 @@
+<div class="layout-sidebar" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    <div class="sidebar-header">
+        <a [routerLink]="['/']" class="logo">
+            <div class="logo-image">
+                <img src="assets/layout/images/logo-white.svg"  class="shadow-4" width="120%"/>
+            </div>
+            <span class="app-name">GroupJAVA</span>
+        </a>
+        <button class="layout-sidebar-anchor p-link" type="button" (click)="anchor()"></button>
+    </div>
+
+    <div #menuContainer  class="layout-menu-container">
+        <app-menu></app-menu>
+    </div>
+</div>

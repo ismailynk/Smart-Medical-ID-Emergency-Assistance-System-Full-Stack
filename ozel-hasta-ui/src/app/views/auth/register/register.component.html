@@ -1,0 +1,60 @@
+<p-toast></p-toast>
+<div class="flex h-screen">
+    <div class="w-full lg:w-4 h-full text-center px-6 py-6 flex flex-column justify-content-between">
+        <img [src]="'assets/layout/images/logo-dark.svg'" class="h-4rem mt-4" alt="diamond-layout"/>
+
+        <div class="flex flex-column align-items-center gap-4">
+            <div class="mb-3">
+                <h2>Kayıt Ol</h2>
+                <p>Haydi Başlayalım</p>
+            </div>
+
+            <div class="flex flex-column gap-4">
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-id-card"></i>
+                    <input id="username" type="text" pInputText class="w-full md:w-25rem"
+                           placeholder="TC Kimlik Numaranız" [(ngModel)]="registration.tckimlik">
+                </span>
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-envelope"></i>
+                    <input id="email" type="text" pInputText class="w-full md:w-25rem" placeholder="E-posta"
+                           [(ngModel)]="registration.mail">
+                </span>
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-user"></i>
+                    <input id="adi" type="text" pInputText class="w-full md:w-25rem" placeholder="Adı Soyadı"
+                           [(ngModel)]="registration.kullaniciAdi">
+                </span>
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-lock z-2"></i>
+                    <p-password id="password" placeholder="Şifre" styleClass="w-full"
+                                [inputStyle]="{paddingLeft: '2.5rem'}" inputStyleClass="w-full md:w-25rem"
+                                [toggleMask]="true" [(ngModel)]="registration.password"></p-password>
+                </span>
+                <div class="flex flex-wrap">
+                    <p-checkbox id="checkbox" name="checkbox" value="val" [(ngModel)]="confirmed" styleClass="mr-2"
+                                [binary]="true"></p-checkbox>
+                    <label for="checkbox" class="text-color font-semibold mr-2">Şartlar ve Koşulları, Okudum Kabul
+                        ediyorum : </label>
+                    <a class="text-color-secondary font-semibold cursor-pointer hover:text-primary cursor-pointer">Şartlar
+                        ve Koşullar </a>
+                </div>
+                <button pButton pRipple label="Üye Ol" class="w-full mb-4" (click)="register()"></button>
+                <span class="font-semibold text-color-secondary">Zaten Bir Hesabın Var mı? <a
+                    class="font-semibold cursor-pointer primary-color" routerLink="/auth/login">Giriş Yap</a></span>
+            </div>
+        </div>
+
+        <p class="text-color-secondary font-semibold">Haydi! durma sende bize katıl.</p>
+    </div>
+    <div
+        class="w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat"
+        style="background-image: url('../../../../assets/demo/images/auth/bg-login.jpg')">
+        <div class="mt-auto text-black-alpha-90 mb-auto">
+            <span class="block  text-7xl font-semibold">Her <br/>Birey <br/>Özeldir</span>
+            <span class="block  text-3xl font-semibold mt-4">Kayıt ol, kendi sayfanı oluştur <br/> hastalığını tanımla ve özelleştir <br/> korkusuz bir hayata merhaba de. </span>
+        </div>
+    </div>
+</div>
+
+<app-config [minimal]="true"></app-config>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <property name="uuid_function" value="public.uuid_generate_v4()" dbms="postgresql"/>
+    <property name="uuid_function" value="random_uuid()" dbms="h2"/>
+    <property name="uuid_function" value="NEWID()" dbms="mssql"/>
+    <property name="uuid_function" value="sys_guid()" dbms="oracle"/>
+
+    <property name="uuid_type" value="uuid" dbms="postgresql,h2"/>
+    <property name="uuid_type" value="uniqueidentifier" dbms="mssql"/>
+    <property name="uuid_type" value="RAW(32)" dbms="oracle"/>
+
+    <include relativeToChangelogFile="true" file="changelog/202303-0001-1-create-table-kullanici-ddl.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/202303-0001-2-create-table-kullanici_role-ddl.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/202303-0001-3-insert-table-kullanici-dml.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/202303-0001-4-insert-table-kullanici_role-dml.xml"/>
+
+    <include relativeToChangelogFile="true" file="changelog/202303-0002-1-create-table-hasta-ddl.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/202303-0003-1-create-table-hastalik-ddl.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/202303-0003-2-create-table-hasta_hastalik-ddl.xml"/>
+
+    <include relativeToChangelogFile="true" file="changelog/202304-0001-1-add-column-kullanici-tckimlik-ddl.xml"/>
+
+</databaseChangeLog>

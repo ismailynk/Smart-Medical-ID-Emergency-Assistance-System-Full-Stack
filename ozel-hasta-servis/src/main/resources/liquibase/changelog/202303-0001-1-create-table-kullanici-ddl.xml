@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202303-0001-1" author="fatih.yildiz">
+        <createTable tableName="kullanici">
+            <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="kullanici_pk"/>
+            </column>
+            <column name="kullanici_kodu" type="varchar2(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="kullanici_adi" type="varchar2(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mail" type="varchar2(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sifre" type="varchar2(255)"/>
+            <column name="active" type="boolean"/>
+            <column name="last_modified_by" type="varchar2(50)"/>
+            <column name="last_modified_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+            <column name="created_by" type="varchar2(50)"/>
+            <column name="created_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+        </createTable>
+        <createIndex tableName="kullanici" indexName="kullanici_kullanici_kodu_idx" unique="true">
+            <column name="kullanici_kodu"></column>
+        </createIndex>
+        <createIndex tableName="kullanici" indexName="kullanici_mail_idx" unique="true">
+            <column name="mail"></column>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,87 @@
+<p-confirmDialog [baseZIndex]="10000" ></p-confirmDialog>
+<div class="layout-wrapper" >
+        <div class="card mb-0 bg-yellow-600">
+            <div class="card-container  overflow-hidden align-items-center">
+                <div class="flex ">
+                    <div class="flex-initial flex align-items-center justify-content-center  font-bold text-white m-2 px-1 py-3 border-round"><img src="assets/layout/images/logo-dark.svg" style="max-width: 7rem" alt="logo"></div>
+                    <div class="flex-initial flex align-items-center justify-content-center  font-bold text-white m-2 px-1 py-3 border-round"> <h1>Özel Hasta</h1></div>
+                </div>
+            </div>
+        </div>
+    <div class="">
+        <div class="layout-content pt-4">
+            <div class="grid">
+                    <div class="col-12 md:col-12 lg:col-6">
+                        <div class=" card  p-fluid ">
+                            <div  class=" col-12 md:col-6 lg:col-12">
+                                <h3 class="font-bold text-orange-700">Hasta Bilgileri</h3>
+                            </div>
+                            <div  class="field col-12 md:col-6 lg:col-12">
+                                <h5 class="font-bold text-primary-700">Hasta Adı</h5>
+                                <p  id="adi">{{hastalikBilgiResponse.hasta.adi}}</p>
+                            </div>
+                            <div class="field col-12 md:col-6 lg:col-12">
+                                <h5 class="font-bold text-primary-700">Hasta Telefon Numarası</h5>
+                                <a class="underline" href="tel:{{hastalikBilgiResponse.hasta.tel}}">{{hastalikBilgiResponse.hasta.tel}}</a>
+                            </div>
+                            <div class="field col-12 md:col-6 lg:col-12">
+                                <h5 class="font-bold text-primary-700">Yakını Telefon Numarası</h5>
+                                <a class="underline" href="tel:{{hastalikBilgiResponse.hasta.yakinTel1}}">{{hastalikBilgiResponse.hasta.yakinTel1}}</a>
+                            </div>
+                            <div class="field col-12 md:col-6 lg:col-12">
+                                <h5 class="font-bold text-primary-700">Yakını 2. Telefon Numarası</h5>
+                                <a class="underline" href="tel:{{hastalikBilgiResponse.hasta.yakinTel2}}">{{hastalikBilgiResponse.hasta.yakinTel2}}</a>
+                            </div>
+                            <div class="field col-12 md:col-6 lg:col-12">
+                                <h5 class="font-bold text-primary-700">Doğum Tarihi</h5>
+                                <p  id="dogumtarihi">{{hastalikBilgiResponse.hasta.dogumTarihi}}</p>
+                            </div>
+                            <div class="field col-12 md:col-6 lg:col-12">
+                                <h5 class="font-bold text-primary-700">Cinsiyet</h5>
+                                <p id="cinsiyet">{{hastalikBilgiResponse.hasta.cinsiyet}}</p>
+                            </div>
+                            <div class="field col-12 md:col-6 lg:col-12">
+                                <h5 class="font-bold text-primary-700">Acil Servisi Ara</h5>
+                                <a class="underline" href="tel:{{112}}">112 Acil Servi!!!</a>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class=" card p-fluid col-12 md:col-6 lg:col-6">
+                    <h1 class="text-center text-orange-600">HASTALIKLAR</h1>
+
+                <p-accordion [activeIndex]="0" >
+                    <ng-container  *ngFor="let hastaHastalik of hastalikBilgiResponse.hastaHastalik">
+                        <p-accordionTab   header="{{hastaHastalik.hastalik.adi}}">
+                            <div class="col-12 ">
+                                <div class="grid ">
+                                    <div class=" col-12 ">
+                                        <h5 class="font-bold text-primary-700">Hastalık Tanımı</h5>
+                                        <p>{{hastaHastalik.hastalik.tanim}}</p>
+                                    </div>
+                                    <div class=" col-12 ">
+                                        <h5 class="font-bold text-primary-700">Belirtileri</h5>
+                                        <p>{{hastaHastalik.hastalik.belirtiler}}</p>
+                                    </div>
+                                    <div class=" col-12 ">
+                                        <h5 class="font-bold text-primary-700">Yapılması gerekenler</h5>
+                                        <p>{{hastaHastalik.hastalik.yapilmasiGerekenler}}</p>
+                                    </div>
+                                    <div class=" col-12  bg-red-700">
+                                        <h5 class="font-bold text-white">Yapılmaması Gerekenler</h5>
+                                        <p class="text-white" >{{ hastaHastalik.hastalik.yapilmamasiGerekenler}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+                    </ng-container>
+                </p-accordion>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
